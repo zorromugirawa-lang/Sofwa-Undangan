@@ -62,6 +62,9 @@ if (empty($templates)) {
   <meta name="keywords" content="undangan digital, undangan online, undangan pernikahan, undangan khitanan, undangan murah, undangan estetik" />
   <meta name="author" content="Sofwa Undangan" />
   
+  <!-- Favicon -->
+  <link rel="icon" href="img/SF.png" type="image/png" />
+  
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -936,7 +939,7 @@ if (empty($templates)) {
 
   <!-- Header -->
   <header>
-    <h1><i class="far fa-heart"></i> Sofwa Undangan</h1>
+    <h1><img src="img/SF.png" alt="Logo Sofwa" style="height: 32px; width: auto; vertical-align: middle; border-radius: 4px;"> Sofwa Undangan</h1>
     <nav id="nav-menu">
       <a href="#home" class="nav-link active"><i class="fas fa-home mobile-only-icon"></i> Home</a>
       <a href="#template" class="nav-link"><i class="fas fa-cubes mobile-only-icon"></i> Template</a>
