@@ -1,0 +1,1245 @@
+<?php
+// C:\xampp\htdocs\SOFWAUNDANGAN\index.php
+
+// Hubungkan ke database dengan auto-installer
+require_once 'db_connect.php';
+
+// Ambil data template dari database
+$templates = [];
+$using_fallback = false;
+
+if ($conn !== null) {
+    try {
+        $stmt = $conn->query("SELECT * FROM templates ORDER BY category DESC, id ASC");
+        $templates = $stmt->fetchAll();
+    } catch (PDOException $e) {
+        $using_fallback = true;
+    }
+} else {
+    $using_fallback = true;
+}
+
+// Data fallback jika koneksi database offline/gagal
+if (empty($templates)) {
+    $templates = [
+        [
+            'id' => 1,
+            'nama' => 'Template Elegant',
+            'kategori' => 'Pernikahan',
+            'gambar' => 'img/cover_elegant.png',
+            'harga' => 150000,
+            'preview' => 'https://demo.domainanda.com/elegant',
+        ],
+        [
+            'id' => 2,
+            'nama' => 'Template Minimalis',
+            'kategori' => 'Pernikahan',
+            'gambar' => 'img/cover_minimalist.png',
+            'harga' => 100000,
+            'preview' => 'https://demo.domainanda.com/minimalis',
+        ],
+        [
+            'id' => 3,
+            'nama' => 'Template Floral',
+            'kategori' => 'Pernikahan',
+            'gambar' => 'img/cover_floral.png',
+            'harga' => 125000,
+            'preview' => 'https://demo.domainanda.com/floral',
+        ],
+    ];
+}
+?>
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sofwa Undangan - Undangan Digital Premium & Estetik</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Sofwa Undangan menawarkan jasa pembuatan undangan digital estetik, elegan, dan interaktif untuk pernikahan dan khitanan dengan harga terjangkau." />
+  <meta name="keywords" content="undangan digital, undangan online, undangan pernikahan, undangan khitanan, undangan murah, undangan estetik" />
+  <meta name="author" content="Sofwa Undangan" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #8b5e3c;
+      --primary-light: #b5835a;
+      --secondary: #e6d3c1;
+      --bg: #f7f5f2;
+      --text: #333;
+      --text-muted: #666;
+      --white: #fff;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 15px 35px rgba(139, 94, 60, 0.15);
+      --gradient: linear-gradient(135deg, #8b5e3c, #b5835a);
+      --accent-wedding: #d4a373;
+      --accent-khitan: #2a9d8f;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Notification Banner for Database Status */
+    .status-banner {
+      background-color: #ffe3e3;
+      color: #b71c1c;
+      text-align: center;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-weight: 500;
+      position: relative;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .status-banner i {
+      font-size: 16px;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    header h1 {
+      color: var(--primary);
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    header h1 i {
+      font-size: 20px;
+    }
+
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 15px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--primary);
+    }
+
+    .btn-nav {
+      background: var(--gradient);
+      color: var(--white) !important;
+      padding: 8px 22px;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(139, 94, 60, 0.3);
+      transition: all 0.3s ease;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(139, 94, 60, 0.4);
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      padding: 80px 80px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      color: var(--primary);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero-text p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 35px;
+      line-height: 1.7;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(139, 94, 60, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 94, 60, 0.35);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: var(--primary);
+      margin-left: 12px;
+    }
+
+    .btn-secondary:hover {
+      background: #dfcabc;
+      transform: translateY(-2px);
+    }
+
+    .hero img {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      border: 6px solid var(--white);
+      transition: transform 0.5s ease;
+    }
+
+    .hero img:hover {
+      transform: scale(1.02);
+    }
+
+    /* Templates Section */
+    section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    section h3 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-size: 15px;
+    }
+
+    /* Filter Controls */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      background: var(--white);
+      border: 1px solid rgba(139, 94, 60, 0.2);
+      color: var(--text-muted);
+      padding: 10px 24px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .filter-btn.active {
+      background: var(--gradient);
+      border-color: transparent;
+      color: var(--white);
+      box-shadow: 0 4px 10px rgba(139, 94, 60, 0.2);
+    }
+
+    /* Cards Grid */
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-thumb-container {
+      position: relative;
+      height: 400px; /* Diubah menjadi potrait */
+      overflow: hidden;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.08);
+    }
+
+    .category-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 2;
+    }
+
+    .badge-pernikahan {
+      background-color: var(--accent-wedding);
+    }
+
+    .badge-khitanan {
+      background-color: var(--accent-khitan);
+    }
+
+    .card-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .card h4 {
+      font-size: 18px;
+      color: #2c2c2c;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .card-price {
+      font-size: 16px;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn-card {
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-card-preview {
+      background: transparent;
+      border: 1.5px solid rgba(139, 94, 60, 0.3);
+      color: var(--primary);
+    }
+
+    .btn-card-preview:hover {
+      background: rgba(139, 94, 60, 0.05);
+      border-color: var(--primary);
+    }
+
+    .btn-card-order {
+      background: var(--gradient);
+      color: var(--white);
+      border: none;
+    }
+
+    .btn-card-order:hover {
+      box-shadow: 0 4px 10px rgba(139, 94, 60, 0.2);
+    }
+
+    /* About Section */
+    .about-section {
+      background: #faf7f4;
+      border-top: 1px solid rgba(139, 94, 60, 0.05);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 35px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    footer p {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    /* Decorative Swaying Flowers */
+    .flower {
+      position: fixed;
+      left: -150px;
+      z-index: 1;
+      width: 180px;
+      opacity: 0;
+      transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+    }
+
+    .flower.visible {
+      opacity: 0.8;
+    }
+
+    .flower-left.visible {
+      left: -20px;
+    }
+
+    .flower-right {
+      left: auto;
+      right: -150px;
+    }
+
+    .flower-right.visible {
+      right: -20px;
+    }
+
+    .flower-1 {
+      top: 200px;
+      width: 240px;
+    }
+
+    .flower-2 {
+      top: 500px;
+      width: 200px;
+    }
+
+    .flower-3 {
+      top: 250px;
+      width: 240px;
+    }
+
+    .flower-4 {
+      top: 600px;
+      width: 200px;
+    }
+
+    @keyframes flowerSway {
+      0% { transform: rotate(0deg) translateY(0); }
+      50% { transform: rotate(6deg) translateY(-10px); }
+      100% { transform: rotate(0deg) translateY(0); }
+    }
+
+    @keyframes flowerSwayOpposite {
+      0% { transform: rotate(0deg) translateY(0); }
+      50% { transform: rotate(-6deg) translateY(10px); }
+      100% { transform: rotate(0deg) translateY(0); }
+    }
+
+    .flower img {
+      width: 100%;
+      transform-origin: bottom left;
+    }
+
+    .flower-1 img {
+      animation: flowerSway 6s ease-in-out infinite;
+    }
+
+    .flower-2 img {
+      animation: flowerSwayOpposite 7s ease-in-out infinite;
+    }
+
+    .flower-3 img {
+      animation: flowerSway 8s ease-in-out infinite;
+      transform-origin: bottom right;
+    }
+
+    .flower-4 img {
+      animation: flowerSwayOpposite 9s ease-in-out infinite;
+      transform-origin: bottom right;
+    }
+
+    .mobile-only-icon {
+      display: none;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.35);
+      z-index: 150;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Hamburger Mobile Menu */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      z-index: 250;
+      position: relative;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: var(--primary);
+      margin: 5px 0;
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    /* Animated Hamburger to X */
+    .hamburger.active div:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .hamburger.active div:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Order Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-container {
+      background: var(--white);
+      border-radius: 24px;
+      width: 90%;
+      max-width: 480px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      position: relative;
+      transform: translateY(30px);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.155);
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: translateY(0);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.04);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text);
+      transition: background-color 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .modal-header {
+      margin-bottom: 24px;
+    }
+
+    .modal-header h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+      font-size: 24px;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+
+    .modal-header p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .selected-template-info {
+      background: #faf8f5;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .selected-template-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .selected-template-price {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #444;
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-light);
+      font-size: 16px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      border: 1.5px solid #e1dbd6;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text);
+      background: #faf9f8;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(139, 94, 60, 0.1);
+    }
+
+    .modal-submit-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: var(--gradient);
+      color: var(--white);
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(139, 94, 60, 0.25);
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 94, 60, 0.35);
+    }
+
+    .modal-submit-btn:disabled {
+      background: #cccccc;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    /* Responsive adjustments */
+    @media(max-width: 992px) {
+      .hero {
+        padding: 60px 40px;
+        gap: 30px;
+      }
+      .hero-text h2 {
+        font-size: 38px;
+      }
+    }
+
+    @media(max-width: 768px) {
+      /* General mobile adjustments to prevent overflow */
+      html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      
+      section {
+        padding: 40px 15px !important;
+      }
+
+      .templates-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+        gap: 20px !important;
+      }
+
+      .flower {
+        width: 120px !important;
+      }
+      .flower-1, .flower-3 {
+        width: 130px !important;
+      }
+      .flower-2, .flower-4 {
+        width: 110px !important;
+      }
+      .flower-left.visible {
+        left: -35px !important;
+      }
+      .flower-right.visible {
+        right: -35px !important;
+      }
+
+      header {
+        padding: 15px 20px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .hero-text h2 {
+        font-size: 32px;
+      }
+
+      .btn-secondary {
+        margin-left: 0;
+        margin-top: 12px;
+        display: inline-block;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      nav {
+        position: fixed;
+        right: -300px;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        box-shadow: -10px 0 35px rgba(0, 0, 0, 0.05);
+        padding: 80px 30px 40px 30px;
+        display: flex;
+        flex-direction: column;
+        transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: 200;
+        border-left: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      nav.active {
+        right: 0;
+      }
+
+      nav a {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: 0;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text);
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateX(20px);
+      }
+
+      /* Slide in menu links one by one when active */
+      nav.active a {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      nav.active a:nth-child(1) { transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s; }
+      nav.active a:nth-child(2) { transition: opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s; }
+      nav.active a:nth-child(3) { transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s; }
+      nav.active a:nth-child(4) { transition: opacity 0.3s ease 0.25s, transform 0.3s ease 0.25s; }
+
+      nav a:hover, nav a.active {
+        background-color: rgba(139, 94, 60, 0.08);
+        color: var(--primary);
+        padding-left: 20px;
+      }
+
+      .mobile-only-icon {
+        display: inline-block;
+        font-size: 18px;
+        width: 20px;
+        text-align: center;
+        color: var(--primary-light);
+      }
+
+      .btn-nav {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        background: var(--gradient);
+        color: var(--white) !important;
+        margin-top: 20px;
+        box-shadow: 0 4px 12px rgba(139, 94, 60, 0.25);
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      
+      nav.active .btn-nav {
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Database Offline Banner (Only displayed if fallback mode is active) -->
+  <?php if ($using_fallback): ?>
+    <div class="status-banner">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span>Mode Demo Offline: Database MySQL tidak aktif di XAMPP. Menggunakan data cadangan.</span>
+    </div>
+  <?php endif; ?>
+
+  <!-- Swaying Flowers -->
+  <div class="flower flower-left flower-1"><img src="img/bunga1.png" alt="Flower 1"></div>
+  <div class="flower flower-left flower-2"><img src="img/bunga2.png" alt="Flower 2"></div>
+  <div class="flower flower-right flower-3"><img src="img/bunga1.png" alt="Flower 3"></div>
+  <div class="flower flower-right flower-4"><img src="img/bunga2.png" alt="Flower 4"></div>
+
+  <!-- Header -->
+  <header>
+    <h1><i class="far fa-heart"></i> Sofwa Undangan</h1>
+    <nav id="nav-menu">
+      <a href="#home" class="nav-link active"><i class="fas fa-home mobile-only-icon"></i> Home</a>
+      <a href="#template" class="nav-link"><i class="fas fa-cubes mobile-only-icon"></i> Template</a>
+      <a href="#tentang" class="nav-link"><i class="fas fa-info-circle mobile-only-icon"></i> Tentang Kami</a>
+      <a href="https://wa.me/6281393678911?text=Halo%20Sofwa%20Undangan,%20saya%20ingin%20memesan%20undangan"
+        class="btn-nav" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Hubungi Kami</a>
+    </nav>
+    <div class="hamburger" id="hamburger-btn">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h2>Undangan Digital Estetik & Elegan</h2>
+      <p>Buat momen spesialmu lebih berkesan dengan undangan digital modern, praktis, dan penuh estetika. Kami menyediakan desain premium untuk pernikahan dan khitanan.</p>
+      <a href="#template" class="btn btn-primary">Pesan Sekarang</a>
+      <a href="#template" class="btn btn-secondary">Lihat Template</a>
+    </div>
+    <div class="hero-img-box">
+      <img src="img/hero.png" alt="Contoh Undangan Digital">
+    </div>
+  </section>
+
+  <!-- Templates Section -->
+  <section id="template">
+    <h3>Template Undangan</h3>
+    <div class="section-subtitle">Pilih desain terbaik untuk merayakan hari kebahagiaan Anda</div>
+    
+    <!-- Filter Kategori -->
+    <div class="filter-tabs">
+      <button class="filter-btn active" data-filter="semua">Semua</button>
+      <button class="filter-btn" data-filter="pernikahan">Pernikahan</button>
+      <button class="filter-btn" data-filter="khitanan">Khitanan</button>
+    </div>
+
+    <!-- Template Cards Grid -->
+    <div class="templates-grid" id="templates-container">
+      <?php foreach ($templates as $template): ?>
+        <?php 
+          $name = $template['nama'] ?? $template['name'] ?? 'Template';
+          $price = $template['harga'] ?? $template['price'] ?? 0;
+          $preview = $template['preview'] ?? $template['path'] ?? '#';
+          $category = $template['kategori'] ?? $template['category'] ?? 'Pernikahan';
+          $thumbnail = $template['gambar'] ?? $template['thumbnail'] ?? 'img/placeholder.png';
+          $id = $template['id'] ?? 0;
+
+          $formatted_price = 'Rp ' . number_format($price, 0, ',', '.');
+          $category_class = strtolower($category);
+          $badge_class = ($category === 'Pernikahan') ? 'badge-pernikahan' : 'badge-khitanan';
+        ?>
+        <div class="card" data-category="<?php echo $category_class; ?>">
+          <div class="card-thumb-container">
+            <span class="category-badge <?php echo $badge_class; ?>">
+              <?php echo htmlspecialchars($category); ?>
+            </span>
+            <img src="<?php echo htmlspecialchars($thumbnail); ?>" alt="<?php echo htmlspecialchars($name); ?>" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h4><?php echo htmlspecialchars($name); ?></h4>
+            <div class="card-price"><?php echo $formatted_price; ?></div>
+            <div class="card-actions">
+              <a href="<?php echo htmlspecialchars($preview); ?>" target="_blank" class="btn-card btn-card-preview">
+                <i class="far fa-eye"></i> Preview
+              </a>
+              <button onclick="openOrderModal(<?php echo $id; ?>, '<?php echo htmlspecialchars(addslashes($name)); ?>', '<?php echo $formatted_price; ?>')" class="btn-card btn-card-order">
+                <i class="fas fa-shopping-cart"></i> Pesan
+              </button>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section" id="tentang">
+    <h3>Tentang Kami</h3>
+    <p style="max-width:700px; margin:auto; text-align:center; line-height:1.8; color: var(--text-muted);">
+      Sofwa Undangan adalah penyedia jasa pembuatan undangan digital profesional dengan desain yang estetik, elegan, dan ramah pengguna. 
+      Kami berkomitmen untuk membantu Anda membagikan kabar bahagia kepada kerabat dan keluarga secara praktis, ramah lingkungan, dan modern, baik untuk perayaan pernikahan maupun syukuran khitanan.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Sofwa Undangan • Hak Cipta Dilindungi</p>
+  </footer>
+
+  <!-- Order Modal -->
+  <div class="modal-overlay" id="order-modal">
+    <div class="modal-container">
+      <button class="modal-close-btn" onclick="closeOrderModal()" aria-label="Tutup">
+        <i class="fas fa-times"></i>
+      </button>
+      
+      <div class="modal-header">
+        <h3>Formulir Pemesanan</h3>
+        <p>Isi formulir berikut untuk melanjutkan pemesanan undangan digital Anda.</p>
+      </div>
+
+      <div class="selected-template-info">
+        <div>
+          <span style="font-size: 12px; color: var(--text-muted); display: block; text-align: left;">Desain Terpilih</span>
+          <span class="selected-template-name" id="modal-template-name">Nama Template</span>
+        </div>
+        <div class="selected-template-price" id="modal-template-price">Rp 0</div>
+      </div>
+
+      <form id="order-form" onsubmit="submitOrder(event)">
+        <input type="hidden" id="order-template-id" name="template_id" value="">
+        
+        <div class="form-group">
+          <label for="customer_name">Nama Lengkap Anda</label>
+          <div class="input-wrapper">
+            <i class="far fa-user"></i>
+            <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="Contoh: Ahmad Fauzi" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp_number">Nomor WhatsApp Anda</label>
+          <div class="input-wrapper">
+            <i class="fab fa-whatsapp"></i>
+            <input type="tel" id="whatsapp_number" name="whatsapp_number" class="form-control" placeholder="Contoh: 081234567890" pattern="[0-9]{9,15}" title="Masukkan nomor telepon angka saja, 9-15 digit" required>
+          </div>
+        </div>
+
+        <button type="submit" class="modal-submit-btn" id="submit-btn">
+          <i class="fab fa-whatsapp"></i> Kirim & Lanjutkan ke WA
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Mobile navigation toggle with premium animated sidebar & overlay
+    const hamburger = document.getElementById('hamburger-btn');
+    const navMenu = document.getElementById('nav-menu');
+    
+    // Create and append sidebar overlay dynamically
+    const sidebarOverlay = document.createElement('div');
+    sidebarOverlay.className = 'sidebar-overlay';
+    sidebarOverlay.id = 'sidebar-overlay';
+    document.body.appendChild(sidebarOverlay);
+
+    function toggleSidebar() {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      sidebarOverlay.classList.toggle('active');
+      
+      if (navMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    hamburger.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Simple scroll highlighting for navigation
+    window.addEventListener('scroll', () => {
+      let scrollPos = window.scrollY + 100;
+      document.querySelectorAll('section').forEach(section => {
+        if (scrollPos >= section.offsetTop && scrollPos < (section.offsetTop + section.offsetHeight)) {
+          let id = section.getAttribute('id');
+          document.querySelectorAll('nav a.nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+
+    // Template filter logic
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Toggle active button class
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const filterValue = button.getAttribute('data-filter');
+
+        cards.forEach(card => {
+          if (filterValue === 'semua') {
+            card.style.display = 'flex';
+            // Animation trigger
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+          } else {
+            const cardCategory = card.getAttribute('data-category');
+            if (cardCategory === filterValue) {
+              card.style.display = 'flex';
+              setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+              }, 50);
+            } else {
+              card.style.opacity = '0';
+              card.style.transform = 'scale(0.9)';
+              // Wait for transition before hiding
+              setTimeout(() => {
+                card.style.display = 'none';
+              }, 300);
+            }
+          }
+        });
+      });
+    });
+
+    // Corner flowers entry animation
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.flower').forEach((f, i) => {
+          setTimeout(() => {
+            f.classList.add('visible');
+          }, i * 500);
+        });
+      }, 500);
+    });
+
+    // Modal Control Logic
+    const orderModal = document.getElementById('order-modal');
+    const modalTemplateId = document.getElementById('order-template-id');
+    const modalTemplateName = document.getElementById('modal-template-name');
+    const modalTemplatePrice = document.getElementById('modal-template-price');
+    const orderForm = document.getElementById('order-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    function openOrderModal(id, name, price) {
+      modalTemplateId.value = id;
+      modalTemplateName.innerText = name;
+      modalTemplatePrice.innerText = price;
+      orderModal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Lock background scrolling
+    }
+
+    function closeOrderModal() {
+      orderModal.classList.remove('active');
+      document.body.style.overflow = 'auto'; // Enable scrolling again
+      orderForm.reset();
+    }
+
+    // Close modal if clicking outside the container
+    orderModal.addEventListener('click', (e) => {
+      if (e.target === orderModal) {
+        closeOrderModal();
+      }
+    });
+
+    // Submit Order Form via AJAX
+    function submitOrder(e) {
+      e.preventDefault();
+      
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+      const formData = new FormData(orderForm);
+
+      fetch('submit_order.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          // Open WhatsApp link in new tab
+          window.open(data.redirect_url, '_blank');
+          // Close modal
+          closeOrderModal();
+        } else {
+          alert('Terjadi kesalahan: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error submitting order:', error);
+        alert('Gagal mengirim pesanan. Silakan periksa koneksi internet Anda.');
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Kirim & Lanjutkan ke WA';
+      });
+    }
+  </script>
+</body>
+
+</html>
