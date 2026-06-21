@@ -5,17 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sofwa Undangan - Undangan Digital Premium & Estetik</title>
-  
+
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Sofwa Undangan menawarkan jasa pembuatan undangan digital estetik, elegan, dan interaktif untuk pernikahan dan khitanan dengan harga terjangkau." />
-  <meta name="keywords" content="undangan digital, undangan online, undangan pernikahan, undangan khitanan, undangan murah, undangan estetik" />
+  <meta name="description"
+    content="Sofwa Undangan menawarkan jasa pembuatan undangan digital estetik, elegan, dan interaktif untuk pernikahan dan khitanan dengan harga terjangkau." />
+  <meta name="keywords"
+    content="undangan digital, undangan online, undangan pernikahan, undangan khitanan, undangan murah, undangan estetik" />
   <meta name="author" content="Sofwa Undangan" />
-  
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap"
+    rel="stylesheet">
+
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -62,13 +66,13 @@
       font-weight: 500;
       position: relative;
       z-index: 100;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 10px;
     }
-    
+
     .status-banner i {
       font-size: 16px;
     }
@@ -111,7 +115,8 @@
       transition: color 0.3s ease;
     }
 
-    nav a:hover, nav a.active {
+    nav a:hover,
+    nav a.active {
       color: var(--primary);
     }
 
@@ -285,7 +290,8 @@
 
     .card-thumb-container {
       position: relative;
-      height: 400px; /* Diubah menjadi potrait */
+      height: 400px;
+      /* Diubah menjadi potrait */
       overflow: hidden;
     }
 
@@ -454,15 +460,31 @@
     }
 
     @keyframes flowerSway {
-      0% { transform: rotate(0deg) translateY(0); }
-      50% { transform: rotate(6deg) translateY(-10px); }
-      100% { transform: rotate(0deg) translateY(0); }
+      0% {
+        transform: rotate(0deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(6deg) translateY(-10px);
+      }
+
+      100% {
+        transform: rotate(0deg) translateY(0);
+      }
     }
 
     @keyframes flowerSwayOpposite {
-      0% { transform: rotate(0deg) translateY(0); }
-      50% { transform: rotate(-6deg) translateY(10px); }
-      100% { transform: rotate(0deg) translateY(0); }
+      0% {
+        transform: rotate(0deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(-6deg) translateY(10px);
+      }
+
+      100% {
+        transform: rotate(0deg) translateY(0);
+      }
     }
 
     .flower img {
@@ -721,18 +743,21 @@
         padding: 60px 40px;
         gap: 30px;
       }
+
       .hero-text h2 {
         font-size: 38px;
       }
     }
 
     @media(max-width: 768px) {
+
       /* General mobile adjustments to prevent overflow */
-      html, body {
+      html,
+      body {
         max-width: 100%;
         overflow-x: hidden;
       }
-      
+
       section {
         padding: 40px 15px !important;
       }
@@ -745,15 +770,21 @@
       .flower {
         width: 120px !important;
       }
-      .flower-1, .flower-3 {
+
+      .flower-1,
+      .flower-3 {
         width: 130px !important;
       }
-      .flower-2, .flower-4 {
+
+      .flower-2,
+      .flower-4 {
         width: 110px !important;
       }
+
       .flower-left.visible {
         left: -35px !important;
       }
+
       .flower-right.visible {
         right: -35px !important;
       }
@@ -827,12 +858,24 @@
         transform: translateX(0);
       }
 
-      nav.active a:nth-child(1) { transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s; }
-      nav.active a:nth-child(2) { transition: opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s; }
-      nav.active a:nth-child(3) { transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s; }
-      nav.active a:nth-child(4) { transition: opacity 0.3s ease 0.25s, transform 0.3s ease 0.25s; }
+      nav.active a:nth-child(1) {
+        transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+      }
 
-      nav a:hover, nav a.active {
+      nav.active a:nth-child(2) {
+        transition: opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s;
+      }
+
+      nav.active a:nth-child(3) {
+        transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s;
+      }
+
+      nav.active a:nth-child(4) {
+        transition: opacity 0.3s ease 0.25s, transform 0.3s ease 0.25s;
+      }
+
+      nav a:hover,
+      nav a.active {
         background-color: rgba(139, 94, 60, 0.08);
         color: var(--primary);
         padding-left: 20px;
@@ -857,7 +900,7 @@
         opacity: 0;
         transform: translateX(20px);
       }
-      
+
       nav.active .btn-nav {
         opacity: 1;
         transform: translateX(0);
@@ -870,7 +913,7 @@
 <body>
 
   <!-- Database Offline Banner (Only displayed if fallback mode is active) -->
-  
+
   <!-- Swaying Flowers -->
   <div class="flower flower-left flower-1"><img src="img/bunga1.png" alt="Flower 1"></div>
   <div class="flower flower-left flower-2"><img src="img/bunga2.png" alt="Flower 2"></div>
@@ -898,7 +941,8 @@
   <section class="hero" id="home">
     <div class="hero-text">
       <h2>Undangan Digital Estetik & Elegan</h2>
-      <p>Buat momen spesialmu lebih berkesan dengan undangan digital modern, praktis, dan penuh estetika. Kami menyediakan desain premium untuk pernikahan dan khitanan.</p>
+      <p>Buat momen spesialmu lebih berkesan dengan undangan digital modern, praktis, dan penuh estetika. Kami
+        menyediakan desain premium untuk pernikahan dan khitanan.</p>
       <a href="#template" class="btn btn-primary">Pesan Sekarang</a>
       <a href="#template" class="btn btn-secondary">Lihat Template</a>
     </div>
@@ -911,7 +955,7 @@
   <section id="template">
     <h3>Template Undangan</h3>
     <div class="section-subtitle">Pilih desain terbaik untuk merayakan hari kebahagiaan Anda</div>
-    
+
     <!-- Filter Kategori -->
     <div class="filter-tabs">
       <button class="filter-btn active" data-filter="semua">Semua</button>
@@ -921,148 +965,151 @@
 
     <!-- Template Cards Grid -->
     <div class="templates-grid" id="templates-container">
-                      <div class="card" data-category="pernikahan">
-          <div class="card-thumb-container">
-            <span class="category-badge badge-pernikahan">
-              Pernikahan            </span>
-            <img src="img/cover_elegant.png" alt="Template Elegant" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <h4>Template Elegant</h4>
-            <div class="card-price">Rp 150.000</div>
-            <div class="card-actions">
-              <a href="templates/pernikahan/undangan1/index.html" target="_blank" class="btn-card btn-card-preview">
-                <i class="far fa-eye"></i> Preview
-              </a>
-              <button onclick="openOrderModal(1, 'Template Elegant', 'Rp 150.000')" class="btn-card btn-card-order">
-                <i class="fas fa-shopping-cart"></i> Pesan
-              </button>
-            </div>
+      <div class="card" data-category="pernikahan">
+        <div class="card-thumb-container">
+          <span class="category-badge badge-pernikahan">
+            Pernikahan </span>
+          <img src="img/cover_elegant.png" alt="Template Elegant" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h4>Template Elegant</h4>
+          <div class="card-price">Rp 150.000</div>
+          <div class="card-actions">
+            <a href="templates/pernikahan/undangan1/https://www.sofwa.my.id/" target="_blank"
+              class="btn-card btn-card-preview">
+              <i class="far fa-eye"></i> Preview
+            </a>
+            <button onclick="openOrderModal(1, 'Template Elegant', 'Rp 150.000')" class="btn-card btn-card-order">
+              <i class="fas fa-shopping-cart"></i> Pesan
+            </button>
           </div>
         </div>
-                      <div class="card" data-category="pernikahan">
-          <div class="card-thumb-container">
-            <span class="category-badge badge-pernikahan">
-              Pernikahan            </span>
-            <img src="img/cover_minimalist.png" alt="Template Minimalis" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <h4>Template Minimalis</h4>
-            <div class="card-price">Rp 100.000</div>
-            <div class="card-actions">
-              <a href="templates/pernikahan/undangan2/index.html" target="_blank" class="btn-card btn-card-preview">
-                <i class="far fa-eye"></i> Preview
-              </a>
-              <button onclick="openOrderModal(2, 'Template Minimalis', 'Rp 100.000')" class="btn-card btn-card-order">
-                <i class="fas fa-shopping-cart"></i> Pesan
-              </button>
-            </div>
+      </div>
+      <div class="card" data-category="pernikahan">
+        <div class="card-thumb-container">
+          <span class="category-badge badge-pernikahan">
+            Pernikahan </span>
+          <img src="img/cover_minimalist.png" alt="Template Minimalis" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h4>Template Minimalis</h4>
+          <div class="card-price">Rp 100.000</div>
+          <div class="card-actions">
+            <a href="templates/pernikahan/undangan2/index.html" target="_blank" class="btn-card btn-card-preview">
+              <i class="far fa-eye"></i> Preview
+            </a>
+            <button onclick="openOrderModal(2, 'Template Minimalis', 'Rp 100.000')" class="btn-card btn-card-order">
+              <i class="fas fa-shopping-cart"></i> Pesan
+            </button>
           </div>
         </div>
-                      <div class="card" data-category="pernikahan">
-          <div class="card-thumb-container">
-            <span class="category-badge badge-pernikahan">
-              Pernikahan            </span>
-            <img src="img/cover_floral.png" alt="Template Floral" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <h4>Template Floral</h4>
-            <div class="card-price">Rp 125.000</div>
-            <div class="card-actions">
-              <a href="templates/pernikahan/undangan3/index.html" target="_blank" class="btn-card btn-card-preview">
-                <i class="far fa-eye"></i> Preview
-              </a>
-              <button onclick="openOrderModal(3, 'Template Floral', 'Rp 125.000')" class="btn-card btn-card-order">
-                <i class="fas fa-shopping-cart"></i> Pesan
-              </button>
-            </div>
+      </div>
+      <div class="card" data-category="pernikahan">
+        <div class="card-thumb-container">
+          <span class="category-badge badge-pernikahan">
+            Pernikahan </span>
+          <img src="img/cover_floral.png" alt="Template Floral" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h4>Template Floral</h4>
+          <div class="card-price">Rp 125.000</div>
+          <div class="card-actions">
+            <a href="templates/pernikahan/undangan3/index.html" target="_blank" class="btn-card btn-card-preview">
+              <i class="far fa-eye"></i> Preview
+            </a>
+            <button onclick="openOrderModal(3, 'Template Floral', 'Rp 125.000')" class="btn-card btn-card-order">
+              <i class="fas fa-shopping-cart"></i> Pesan
+            </button>
           </div>
         </div>
-                      <div class="card" data-category="pernikahan">
-          <div class="card-thumb-container">
-            <span class="category-badge badge-pernikahan">
-              Pernikahan            </span>
-            <img src="img/cover_modern.png" alt="Template Modern" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <h4>Template Modern</h4>
-            <div class="card-price">Rp 130.000</div>
-            <div class="card-actions">
-              <a href="templates/pernikahan/undangan4/index.php" target="_blank" class="btn-card btn-card-preview">
-                <i class="far fa-eye"></i> Preview
-              </a>
-              <button onclick="openOrderModal(4, 'Template Modern', 'Rp 130.000')" class="btn-card btn-card-order">
-                <i class="fas fa-shopping-cart"></i> Pesan
-              </button>
-            </div>
+      </div>
+      <div class="card" data-category="pernikahan">
+        <div class="card-thumb-container">
+          <span class="category-badge badge-pernikahan">
+            Pernikahan </span>
+          <img src="img/cover_modern.png" alt="Template Modern" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h4>Template Modern</h4>
+          <div class="card-price">Rp 130.000</div>
+          <div class="card-actions">
+            <a href="templates/pernikahan/undangan4/index.php" target="_blank" class="btn-card btn-card-preview">
+              <i class="far fa-eye"></i> Preview
+            </a>
+            <button onclick="openOrderModal(4, 'Template Modern', 'Rp 130.000')" class="btn-card btn-card-order">
+              <i class="fas fa-shopping-cart"></i> Pesan
+            </button>
           </div>
         </div>
-                      <div class="card" data-category="khitanan">
-          <div class="card-thumb-container">
-            <span class="category-badge badge-khitanan">
-              Khitanan            </span>
-            <img src="img/cover_khitan_islamic.png" alt="Template Khitan Islamic" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <h4>Template Khitan Islamic</h4>
-            <div class="card-price">Rp 90.000</div>
-            <div class="card-actions">
-              <a href="templates/khitanan/undangankhitan/index.html" target="_blank" class="btn-card btn-card-preview">
-                <i class="far fa-eye"></i> Preview
-              </a>
-              <button onclick="openOrderModal(5, 'Template Khitan Islamic', 'Rp 90.000')" class="btn-card btn-card-order">
-                <i class="fas fa-shopping-cart"></i> Pesan
-              </button>
-            </div>
+      </div>
+      <div class="card" data-category="khitanan">
+        <div class="card-thumb-container">
+          <span class="category-badge badge-khitanan">
+            Khitanan </span>
+          <img src="img/cover_khitan_islamic.png" alt="Template Khitan Islamic" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h4>Template Khitan Islamic</h4>
+          <div class="card-price">Rp 90.000</div>
+          <div class="card-actions">
+            <a href="templates/khitanan/undangankhitan/index.html" target="_blank" class="btn-card btn-card-preview">
+              <i class="far fa-eye"></i> Preview
+            </a>
+            <button onclick="openOrderModal(5, 'Template Khitan Islamic', 'Rp 90.000')" class="btn-card btn-card-order">
+              <i class="fas fa-shopping-cart"></i> Pesan
+            </button>
           </div>
         </div>
-                      <div class="card" data-category="khitanan">
-          <div class="card-thumb-container">
-            <span class="category-badge badge-khitanan">
-              Khitanan            </span>
-            <img src="img/cover_khitan_ceria.png" alt="Template Khitan Ceria" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <h4>Template Khitan Ceria</h4>
-            <div class="card-price">Rp 95.000</div>
-            <div class="card-actions">
-              <a href="templates/khitanan/undangankhitan2/index.html" target="_blank" class="btn-card btn-card-preview">
-                <i class="far fa-eye"></i> Preview
-              </a>
-              <button onclick="openOrderModal(6, 'Template Khitan Ceria', 'Rp 95.000')" class="btn-card btn-card-order">
-                <i class="fas fa-shopping-cart"></i> Pesan
-              </button>
-            </div>
+      </div>
+      <div class="card" data-category="khitanan">
+        <div class="card-thumb-container">
+          <span class="category-badge badge-khitanan">
+            Khitanan </span>
+          <img src="img/cover_khitan_ceria.png" alt="Template Khitan Ceria" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h4>Template Khitan Ceria</h4>
+          <div class="card-price">Rp 95.000</div>
+          <div class="card-actions">
+            <a href="templates/khitanan/undangankhitan2/index.html" target="_blank" class="btn-card btn-card-preview">
+              <i class="far fa-eye"></i> Preview
+            </a>
+            <button onclick="openOrderModal(6, 'Template Khitan Ceria', 'Rp 95.000')" class="btn-card btn-card-order">
+              <i class="fas fa-shopping-cart"></i> Pesan
+            </button>
           </div>
         </div>
-                      <div class="card" data-category="khitanan">
-          <div class="card-thumb-container">
-            <span class="category-badge badge-khitanan">
-              Khitanan            </span>
-            <img src="img/cover_khitan_modern.png" alt="Template Khitan Modern" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <h4>Template Khitan Modern</h4>
-            <div class="card-price">Rp 85.000</div>
-            <div class="card-actions">
-              <a href="templates/khitanan/undangankhitan3/index.html" target="_blank" class="btn-card btn-card-preview">
-                <i class="far fa-eye"></i> Preview
-              </a>
-              <button onclick="openOrderModal(7, 'Template Khitan Modern', 'Rp 85.000')" class="btn-card btn-card-order">
-                <i class="fas fa-shopping-cart"></i> Pesan
-              </button>
-            </div>
+      </div>
+      <div class="card" data-category="khitanan">
+        <div class="card-thumb-container">
+          <span class="category-badge badge-khitanan">
+            Khitanan </span>
+          <img src="img/cover_khitan_modern.png" alt="Template Khitan Modern" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h4>Template Khitan Modern</h4>
+          <div class="card-price">Rp 85.000</div>
+          <div class="card-actions">
+            <a href="templates/khitanan/undangankhitan3/index.html" target="_blank" class="btn-card btn-card-preview">
+              <i class="far fa-eye"></i> Preview
+            </a>
+            <button onclick="openOrderModal(7, 'Template Khitan Modern', 'Rp 85.000')" class="btn-card btn-card-order">
+              <i class="fas fa-shopping-cart"></i> Pesan
+            </button>
           </div>
         </div>
-          </div>
+      </div>
+    </div>
   </section>
 
   <!-- About Section -->
   <section class="about-section" id="tentang">
     <h3>Tentang Kami</h3>
     <p style="max-width:700px; margin:auto; text-align:center; line-height:1.8; color: var(--text-muted);">
-      Sofwa Undangan adalah penyedia jasa pembuatan undangan digital profesional dengan desain yang estetik, elegan, dan ramah pengguna. 
-      Kami berkomitmen untuk membantu Anda membagikan kabar bahagia kepada kerabat dan keluarga secara praktis, ramah lingkungan, dan modern, baik untuk perayaan pernikahan maupun syukuran khitanan.
+      Sofwa Undangan adalah penyedia jasa pembuatan undangan digital profesional dengan desain yang estetik, elegan, dan
+      ramah pengguna.
+      Kami berkomitmen untuk membantu Anda membagikan kabar bahagia kepada kerabat dan keluarga secara praktis, ramah
+      lingkungan, dan modern, baik untuk perayaan pernikahan maupun syukuran khitanan.
     </p>
   </section>
 
@@ -1077,7 +1124,7 @@
       <button class="modal-close-btn" onclick="closeOrderModal()" aria-label="Tutup">
         <i class="fas fa-times"></i>
       </button>
-      
+
       <div class="modal-header">
         <h3>Formulir Pemesanan</h3>
         <p>Isi formulir berikut untuk melanjutkan pemesanan undangan digital Anda.</p>
@@ -1085,7 +1132,8 @@
 
       <div class="selected-template-info">
         <div>
-          <span style="font-size: 12px; color: var(--text-muted); display: block; text-align: left;">Desain Terpilih</span>
+          <span style="font-size: 12px; color: var(--text-muted); display: block; text-align: left;">Desain
+            Terpilih</span>
           <span class="selected-template-name" id="modal-template-name">Nama Template</span>
         </div>
         <div class="selected-template-price" id="modal-template-price">Rp 0</div>
@@ -1093,12 +1141,13 @@
 
       <form id="order-form" onsubmit="submitOrder(event)">
         <input type="hidden" id="order-template-id" name="template_id" value="">
-        
+
         <div class="form-group">
           <label for="customer_name">Nama Lengkap Anda</label>
           <div class="input-wrapper">
             <i class="far fa-user"></i>
-            <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="Contoh: Ahmad Fauzi" required>
+            <input type="text" id="customer_name" name="customer_name" class="form-control"
+              placeholder="Contoh: Ahmad Fauzi" required>
           </div>
         </div>
 
@@ -1106,7 +1155,9 @@
           <label for="whatsapp_number">Nomor WhatsApp Anda</label>
           <div class="input-wrapper">
             <i class="fab fa-whatsapp"></i>
-            <input type="tel" id="whatsapp_number" name="whatsapp_number" class="form-control" placeholder="Contoh: 081234567890" pattern="[0-9]{9,15}" title="Masukkan nomor telepon angka saja, 9-15 digit" required>
+            <input type="tel" id="whatsapp_number" name="whatsapp_number" class="form-control"
+              placeholder="Contoh: 081234567890" pattern="[0-9]{9,15}"
+              title="Masukkan nomor telepon angka saja, 9-15 digit" required>
           </div>
         </div>
 
@@ -1121,7 +1172,7 @@
     // Mobile navigation toggle with premium animated sidebar & overlay
     const hamburger = document.getElementById('hamburger-btn');
     const navMenu = document.getElementById('nav-menu');
-    
+
     // Create and append sidebar overlay dynamically
     const sidebarOverlay = document.createElement('div');
     sidebarOverlay.className = 'sidebar-overlay';
@@ -1132,7 +1183,7 @@
       hamburger.classList.toggle('active');
       navMenu.classList.toggle('active');
       sidebarOverlay.classList.toggle('active');
-      
+
       if (navMenu.classList.contains('active')) {
         document.body.style.overflow = 'hidden'; // Prevent scrolling
       } else {
@@ -1251,7 +1302,7 @@
     // Submit Order Form via AJAX
     function submitOrder(e) {
       e.preventDefault();
-      
+
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
 
@@ -1261,28 +1312,27 @@
         method: 'POST',
         body: formData
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === 'success') {
-          // Open WhatsApp link in new tab
-          window.open(data.redirect_url, '_blank');
-          // Close modal
-          closeOrderModal();
-        } else {
-          alert('Terjadi kesalahan: ' + data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Error submitting order:', error);
-        alert('Gagal mengirim pesanan. Silakan periksa koneksi internet Anda.');
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Kirim & Lanjutkan ke WA';
-      });
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            // Open WhatsApp link in new tab
+            window.open(data.redirect_url, '_blank');
+            // Close modal
+            closeOrderModal();
+          } else {
+            alert('Terjadi kesalahan: ' + data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error submitting order:', error);
+          alert('Gagal mengirim pesanan. Silakan periksa koneksi internet Anda.');
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Kirim & Lanjutkan ke WA';
+        });
     }
   </script>
 </body>
 
 </html>
-
