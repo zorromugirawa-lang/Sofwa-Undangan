@@ -81,7 +81,7 @@ try {
                 'category' => 'Pernikahan',
                 'thumbnail' => 'img/cover_floral.png',
                 'price' => 125000,
-                'path' => 'templates/pernikahan/undangan3/index.html'
+                'path' => 'https://undanganiv.baiinst.my.id/'
             ],
             [
                 'name' => 'Template Modern',

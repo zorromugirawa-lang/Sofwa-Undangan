@@ -44,7 +44,7 @@ if (empty($templates)) {
             'kategori' => 'Pernikahan',
             'gambar' => 'img/cover_floral.png',
             'harga' => 125000,
-            'preview' => 'https://demo.domainanda.com/floral',
+            'preview' => 'https://undanganiv.baiinst.my.id/',
         ],
     ];
 }
