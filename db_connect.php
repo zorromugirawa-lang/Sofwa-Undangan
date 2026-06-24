@@ -77,9 +77,9 @@ try {
                 'path' => 'templates/pernikahan/undangan2/index.html'
             ],
             [
-                'name' => 'Template Floral',
+                'name' => 'Template Adat Jawa',
                 'category' => 'Pernikahan',
-                'thumbnail' => 'img/cover_floral.png',
+                'thumbnail' => 'img/cover_adat_jawa.png',
                 'price' => 125000,
                 'path' => 'https://undanganiv.baiinst.my.id/'
             ],
@@ -121,7 +121,7 @@ try {
         $updates = [
             'Template Elegant' => 'img/cover_elegant.png',
             'Template Minimalis' => 'img/cover_minimalist.png',
-            'Template Floral' => 'img/cover_floral.png',
+            'Template Adat Jawa' => 'img/cover_adat_jawa.png',
             'Template Modern' => 'img/cover_modern.png',
             'Template Khitan Islamic' => 'img/cover_khitan_islamic.png',
             'Template Khitan Ceria' => 'img/cover_khitan_ceria.png',

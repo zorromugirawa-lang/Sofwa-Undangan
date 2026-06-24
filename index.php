@@ -40,9 +40,9 @@ if (empty($templates)) {
         ],
         [
             'id' => 3,
-            'nama' => 'Template Floral',
+            'nama' => 'Template Adat Jawa',
             'kategori' => 'Pernikahan',
-            'gambar' => 'img/cover_floral.png',
+            'gambar' => 'img/cover_adat_jawa.png',
             'harga' => 125000,
             'preview' => 'https://undanganiv.baiinst.my.id/',
         ],

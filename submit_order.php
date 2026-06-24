@@ -9,7 +9,7 @@ require_once 'db_connect.php';
 $fallback_templates = [
     1 => ['name' => 'Template Elegant', 'category' => 'Pernikahan', 'price' => 150000],
     2 => ['name' => 'Template Minimalis', 'category' => 'Pernikahan', 'price' => 100000],
-    3 => ['name' => 'Template Floral', 'category' => 'Pernikahan', 'price' => 125000],
+    3 => ['name' => 'Template Adat Jawa', 'category' => 'Pernikahan', 'price' => 125000],
     4 => ['name' => 'Template Modern', 'category' => 'Pernikahan', 'price' => 130000],
     5 => ['name' => 'Template Khitan Islamic', 'category' => 'Khitanan', 'price' => 90000],
     6 => ['name' => 'Template Khitan Ceria', 'category' => 'Khitanan', 'price' => 95000],

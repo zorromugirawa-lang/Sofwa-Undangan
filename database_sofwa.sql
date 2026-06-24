@@ -35,5 +35,5 @@ CREATE TABLE IF NOT EXISTS guestbook (
 INSERT INTO templates (name, category, thumbnail, price) VALUES
 ('Template Elegant', 'Premium', 'img/elegant.png', 150000),
 ('Template Minimalis', 'Simple', 'img/minimalist.png', 100000),
-('Template Floral', 'Nature', 'img/floral.png', 125000),
+('Template Adat Jawa', 'Pernikahan', 'img/cover_adat_jawa.png', 125000),
 ('Template Modern', 'Modern', 'img/modern.png', 130000);
