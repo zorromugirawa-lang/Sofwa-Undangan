@@ -57,6 +57,9 @@ if (empty($templates)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sofwa Undangan - Undangan Digital Premium & Estetik</title>
   
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://baiinst.my.id/halaman-utama" />
+  
   <!-- SEO Meta Tags -->
   <meta name="description" content="Sofwa Undangan menawarkan jasa pembuatan undangan digital estetik, elegan, dan interaktif untuk pernikahan dan khitanan dengan harga terjangkau." />
   <meta name="keywords" content="undangan digital, undangan online, undangan pernikahan, undangan khitanan, undangan murah, undangan estetik" />
