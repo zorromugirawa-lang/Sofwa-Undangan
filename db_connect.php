@@ -1,7 +1,7 @@
 <?php
 // C:\xampp\htdocs\SOFWAUNDANGAN\db_connect.php
 
-$host = 'localhost';
+$host = '127.0.0.1';
 $username = 'root';
 $password = '';
 $dbname = 'db_sofwa_undangan';

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Cetak & Fisik - Sofwa Undangan</title>
+  
+  <link rel="icon" href="img/SF.png" type="image/png" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #8b5e3c;
+      --primary-light: #b5835a;
+      --secondary: #e6d3c1;
+      --bg: #f7f5f2;
+      --text: #333;
+      --text-muted: #666;
+      --white: #fff;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 15px 35px rgba(139, 94, 60, 0.15);
+      --gradient: linear-gradient(135deg, #8b5e3c, #b5835a);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    header h1 {
+      color: var(--primary);
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    header h1 i {
+      font-size: 20px;
+    }
+    
+    header a.logo-link {
+        text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 15px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--primary);
+    }
+
+    .btn-nav {
+      background: var(--gradient);
+      color: var(--white) !important;
+      padding: 8px 22px;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(139, 94, 60, 0.3);
+      transition: all 0.3s ease;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      margin-left: 25px;
+    }
+
+    .btn-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(139, 94, 60, 0.4);
+    }
+
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            padding: 15px 20px;
+        }
+        nav {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        nav a {
+            margin-left: 0;
+            padding: 5px 10px;
+        }
+        .btn-nav {
+            margin-left: 0;
+            margin-top: 10px;
+        }
+    }
+    
+    .page-header {
+        padding: 80px 40px 40px;
+        text-align: center;
+    }
+    
+    .page-header h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 42px;
+        color: var(--primary);
+        margin-bottom: 15px;
+    }
+    
+    .page-header p {
+        color: var(--text-muted);
+        font-size: 16px;
+        max-width: 650px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .gallery-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 40px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .gallery-item {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .gallery-img-wrapper {
+      position: relative;
+      height: 350px;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+
+    .gallery-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .gallery-item:hover .gallery-img-wrapper img {
+      transform: scale(1.05);
+    }
+
+    .gallery-info {
+      padding: 25px;
+      text-align: center;
+    }
+
+    .gallery-info h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .gallery-info p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    
+    .price-tag {
+        display: inline-block;
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    
+    .contact-banner {
+        background: var(--gradient);
+        color: var(--white);
+        text-align: center;
+        padding: 50px 20px;
+        margin: 40px 0;
+    }
+    
+    .contact-banner h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+    
+    .contact-banner p {
+        font-size: 16px;
+        margin-bottom: 25px;
+        opacity: 0.9;
+    }
+    
+    .btn-wa {
+        background: #25D366;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-wa:hover {
+        background: #128C7E;
+        transform: translateY(-2px);
+    }
+
+    footer {
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 30px 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo-link">
+        <h1><i class="fas fa-heart"></i> Sofwa Undangan</h1>
+    </a>
+    <nav>
+      <a href="index.html">Beranda</a>
+      <a href="index.html#katalog">Katalog Digital</a>
+      <a href="undangan-cetak.html" class="active">Undangan Cetak</a>
+      <button class="btn-nav" onclick="location.href='index.html#kontak'">Pesan Sekarang</button>
+    </nav>
+  </header>
+  
+  <div class="page-header">
+      <h2>Koleksi Undangan Cetak</h2>
+      <p>Selain undangan digital, kami juga menyediakan layanan pembuatan undangan fisik dengan desain premium, elegan, bahan berkualitas tinggi, dan harga terjangkau.</p>
+  </div>
+  
+  <div class="gallery-container">
+      <!-- Item 1 -->
+      <div class="gallery-item">
+          <div class="gallery-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1598284534731-2945d81b7e41?q=80&w=600&auto=format&fit=crop" alt="Undangan Hardcover">
+          </div>
+          <div class="gallery-info">
+              <h3>Classic Hardcover</h3>
+              <p>Desain elegan dengan balutan hardcover tebal, memberikan kesan mewah dan eksklusif.</p>
+              <div class="price-tag">Mulai Rp 5.000 / pcs</div>
+          </div>
+      </div>
+      
+      <!-- Item 2 -->
+      <div class="gallery-item">
+          <div class="gallery-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1544431966-26155694a0d9?q=80&w=600&auto=format&fit=crop" alt="Undangan Rustic">
+          </div>
+          <div class="gallery-info">
+              <h3>Rustic Floral</h3>
+              <p>Tema rustic estetik dengan sentuhan tali rami dan wax seal (segel lilin).</p>
+              <div class="price-tag">Mulai Rp 3.500 / pcs</div>
+          </div>
+      </div>
+      
+      <!-- Item 3 -->
+      <div class="gallery-item">
+          <div class="gallery-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1621316493902-861c8a14b18c?q=80&w=600&auto=format&fit=crop" alt="Undangan Acrylic">
+          </div>
+          <div class="gallery-info">
+              <h3>Premium Acrylic</h3>
+              <p>Undangan ultra mewah berbahan akrilik transparan dengan teks emas foil.</p>
+              <div class="price-tag">Mulai Rp 15.000 / pcs</div>
+          </div>
+      </div>
+      
+      <!-- Item 4 -->
+      <div class="gallery-item">
+          <div class="gallery-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1606821814144-80f0896025ba?q=80&w=600&auto=format&fit=crop" alt="Undangan Minimalis">
+          </div>
+          <div class="gallery-info">
+              <h3>Modern Minimalist</h3>
+              <p>Desain simpel namun tegas, menggunakan font modern dan warna solid.</p>
+              <div class="price-tag">Mulai Rp 2.500 / pcs</div>
+          </div>
+      </div>
+      
+      <!-- Item 5 -->
+      <div class="gallery-item">
+          <div class="gallery-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1533619043865-1c2e1f427d1d?q=80&w=600&auto=format&fit=crop" alt="Undangan Amplop">
+          </div>
+          <div class="gallery-info">
+              <h3>Vellum Envelope</h3>
+              <p>Menggunakan amplop kalkir (vellum) transparan yang elegan dan estetik.</p>
+              <div class="price-tag">Mulai Rp 4.500 / pcs</div>
+          </div>
+      </div>
+      
+      <!-- Item 6 -->
+      <div class="gallery-item">
+          <div class="gallery-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1502444330042-d1a1ddf9bb5b?q=80&w=600&auto=format&fit=crop" alt="Undangan Lipat">
+          </div>
+          <div class="gallery-info">
+              <h3>Softcover Trifold</h3>
+              <p>Undangan lipat 3 (trifold) yang ringkas namun informatif. Praktis dan cantik.</p>
+              <div class="price-tag">Mulai Rp 1.500 / pcs</div>
+          </div>
+      </div>
+  </div>
+  
+  <div class="contact-banner">
+      <h3>Tertarik dengan Undangan Cetak Kami?</h3>
+      <p>Hubungi admin kami untuk konsultasi desain, bahan, dan harga custom sesuai kebutuhan Anda.</p>
+      <a href="https://wa.me/6281234567890" target="_blank" class="btn-wa">
+          <i class="fab fa-whatsapp"></i> Hubungi Admin via WhatsApp
+      </a>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Sofwa Undangan. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
