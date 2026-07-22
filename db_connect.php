@@ -132,7 +132,39 @@ try {
             $update_stmt->execute(['thumbnail' => $thumb, 'name' => $name]);
         }
     }
+    
+    // 9. Buat tabel undangan_cetak jika belum ada
+    $conn->exec("CREATE TABLE IF NOT EXISTS undangan_cetak (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nama VARCHAR(100) NOT NULL,
+        bahan VARCHAR(100) NOT NULL,
+        jenis_blangko VARCHAR(100) NOT NULL,
+        ukuran_terbuka VARCHAR(100) NOT NULL,
+        ukuran_terlipat VARCHAR(100) NOT NULL,
+        ukuran_plastik VARCHAR(100) NOT NULL,
+        harga DECIMAL(10, 2) NOT NULL,
+        thumbnail VARCHAR(255) NOT NULL
+    ) ENGINE=InnoDB");
 
+    // 10. Cek apakah tabel undangan_cetak kosong
+    $stmt_cetak = $conn->query("SELECT COUNT(*) FROM undangan_cetak");
+    if ($stmt_cetak->fetchColumn() == 0) {
+        $insert_cetak = "INSERT INTO undangan_cetak (nama, bahan, jenis_blangko, ukuran_terbuka, ukuran_terlipat, ukuran_plastik, harga, thumbnail) VALUES (:nama, :bahan, :jenis_blangko, :ukuran_terbuka, :ukuran_terlipat, :ukuran_plastik, :harga, :thumbnail)";
+        $insert_cetak_stmt = $conn->prepare($insert_cetak);
+        
+        $initial_cetak = [
+            ['nama' => 'Indie Kode IN 83', 'bahan' => 'BC 150 gram', 'jenis_blangko' => 'Soft Cover', 'ukuran_terbuka' => '21 X 19.5 (Cm)', 'ukuran_terlipat' => '11.7 X 19.5 (Cm)', 'ukuran_plastik' => '12 X 24 (Cm)', 'harga' => 1500, 'thumbnail' => 'assets/indie.png'],
+            ['nama' => 'Undangan Indie IN 86', 'bahan' => 'BC 150 gram', 'jenis_blangko' => 'Soft Cover', 'ukuran_terbuka' => '21 X 19.5 (Cm)', 'ukuran_terlipat' => '11.8 X 19.5 (Cm)', 'ukuran_plastik' => '12 X 22 (Cm)', 'harga' => 1500, 'thumbnail' => 'assets/indie86.png'],
+            ['nama' => 'Premium Acrylic', 'bahan' => 'BC 150 gram', 'jenis_blangko' => 'Soft Cover', 'ukuran_terbuka' => '21 X 19.5 (Cm)', 'ukuran_terlipat' => '11.7 X 19.5 (Cm)', 'ukuran_plastik' => '12 X 24 (Cm)', 'harga' => 1500, 'thumbnail' => 'assets/indie81.png'],
+            ['nama' => 'Modern Minimalist', 'bahan' => 'BC 150 gram', 'jenis_blangko' => 'Soft Cover', 'ukuran_terbuka' => '21 X 19.5 (Cm)', 'ukuran_terlipat' => '11.7 X 19.5 (Cm)', 'ukuran_plastik' => '12 X 24 (Cm)', 'harga' => 1500, 'thumbnail' => 'https://images.unsplash.com/photo-1606821814144-80f0896025ba?q=80&w=600&auto=format&fit=crop'],
+            ['nama' => 'Vellum Envelope', 'bahan' => 'BC 150 gram', 'jenis_blangko' => 'Soft Cover', 'ukuran_terbuka' => '21 X 19.5 (Cm)', 'ukuran_terlipat' => '11.7 X 19.5 (Cm)', 'ukuran_plastik' => '12 X 24 (Cm)', 'harga' => 1500, 'thumbnail' => 'https://images.unsplash.com/photo-1533619043865-1c2e1f427d1d?q=80&w=600&auto=format&fit=crop'],
+            ['nama' => 'Softcover Trifold', 'bahan' => 'BC 150 gram', 'jenis_blangko' => 'Soft Cover', 'ukuran_terbuka' => '21 X 19.5 (Cm)', 'ukuran_terlipat' => '11.7 X 19.5 (Cm)', 'ukuran_plastik' => '12 X 24 (Cm)', 'harga' => 1500, 'thumbnail' => 'https://images.unsplash.com/photo-1502444330042-d1a1ddf9bb5b?q=80&w=600&auto=format&fit=crop']
+        ];
+        
+        foreach ($initial_cetak as $c) {
+            $insert_cetak_stmt->execute($c);
+        }
+    }
 } catch (PDOException $e) {
     // Simpan error koneksi agar bisa dibaca halaman utama
     $db_error = $e->getMessage();

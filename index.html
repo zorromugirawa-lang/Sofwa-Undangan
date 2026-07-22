@@ -89,6 +89,7 @@
       -webkit-backdrop-filter: blur(12px);
       padding: 15px 40px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       position: sticky;
@@ -242,6 +243,7 @@
     /* Filter Controls */
     .filter-tabs {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
       margin-bottom: 40px;
@@ -769,8 +771,54 @@
       }
 
       .templates-grid {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
-        gap: 20px !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+      }
+      .card-thumb-container {
+        height: 150px !important;
+      }
+      .card-body {
+        padding: 10px !important;
+      }
+      .card h4 {
+        font-size: 11px !important;
+        margin-bottom: 4px !important;
+      }
+      .card-price {
+        font-size: 10px !important;
+        margin-bottom: 8px !important;
+      }
+      .category-badge {
+        font-size: 8px !important;
+        padding: 4px 6px !important;
+        top: 5px !important;
+        left: 5px !important;
+      }
+      .card-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+      }
+      .btn-card {
+        padding: 5px !important;
+        font-size: 9px !important;
+        border-radius: 6px !important;
+      }
+
+      .filter-tabs {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+        width: 100%;
+        padding: 0 15px;
+      }
+
+      .filter-btn {
+        padding: 10px 5px !important;
+        font-size: 13px !important;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
       }
 
       .flower {
@@ -826,34 +874,6 @@
         width: 280px;
         height: 100vh;
         background-color: rgba(255, 255, 255, 0.55);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        box-shadow: -10px 0 35px rgba(0, 0, 0, 0.05);
-        padding: 80px 30px 40px 30px;
-        display: flex;
-        flex-direction: column;
-        transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        z-index: 200;
-        border-left: 1px solid rgba(255, 255, 255, 0.5);
-      }
-
-      nav.active {
-        right: 0;
-      }
-
-      nav a {
-        margin: 10px 0;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-left: 0;
-        font-size: 16px;
-        font-weight: 500;
-        color: var(--text);
-        text-decoration: none;
-        padding: 10px 15px;
-        border-radius: 12px;
-        transition: all 0.3s ease;
         opacity: 0;
         transform: translateX(20px);
       }
@@ -913,6 +933,43 @@
         transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
       }
     }
+
+    /* Floating Music Button */
+    .floating-music-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--gradient);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 15px rgba(139, 94, 60, 0.4);
+      cursor: pointer;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .floating-music-btn .fa-compact-disc {
+      animation: spin 4s linear infinite;
+    }
+    
+    .floating-music-btn.paused .fa-compact-disc {
+      animation-play-state: paused;
+    }
+    
+    .floating-music-btn:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 
@@ -931,18 +988,12 @@
     <h1><img src="img/SF.png" alt="Logo Sofwa"
         style="height: 32px; width: auto; vertical-align: middle; border-radius: 4px;"> Sofwa Undangan</h1>
     <nav id="nav-menu">
-      <a href="#home" class="nav-link active"><i class="fas fa-home mobile-only-icon"></i> Home</a>
-      <a href="#template" class="nav-link"><i class="fas fa-cubes mobile-only-icon"></i> Template</a>
-      <a href="undangan-cetak.html" class="nav-link"><i class="fas fa-envelope-open-text mobile-only-icon"></i> Undangan Cetak</a>
-      <a href="#tentang" class="nav-link"><i class="fas fa-info-circle mobile-only-icon"></i> Tentang Kami</a>
-      <a href="https://wa.me/6281393678911?text=Halo%20Sofwa%20Undangan,%20saya%20ingin%20memesan%20undangan"
-        class="btn-nav" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Hubungi Kami</a>
+      <a href="#home" class="nav-link active">Beranda</a>
+      <a href="#template" class="nav-link" onclick="document.querySelector('[data-filter=\'pernikahan\']').click();">Undangan Digital</a>
+      <a href="#template" class="nav-link" onclick="document.querySelector('[data-filter=\'khitanan\']').click();">Undangan Khitan</a>
+      <a href="undangan-cetak.php" class="nav-link">Undangan Cetak</a>
+      <a href="#tentang" class="nav-link">Tentang Kami</a>
     </nav>
-    <div class="hamburger" id="hamburger-btn">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
   </header>
 
   <!-- Hero Section -->
@@ -969,6 +1020,7 @@
       <button class="filter-btn active" data-filter="semua">Semua</button>
       <button class="filter-btn" data-filter="pernikahan">Pernikahan</button>
       <button class="filter-btn" data-filter="khitanan">Khitanan</button>
+      <a href="undangan-cetak.php" class="filter-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;"><i class="fas fa-envelope-open-text" style="margin-right: 6px;"></i> Undangan Cetak</a>
     </div>
 
     <!-- Template Cards Grid -->
@@ -1340,6 +1392,42 @@
         });
     }
   </script>
-</body>
 
+  <!-- Background Music -->
+  <audio id="bg-music" loop>
+    <source src="assets/Olivia.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-btn" class="floating-music-btn paused">
+    <i class="fas fa-compact-disc"></i>
+  </button>
+
+  <script>
+    const musicBtn = document.getElementById('music-btn');
+    const bgMusic = document.getElementById('bg-music');
+    let isPlaying = false;
+
+    musicBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        bgMusic.pause();
+        musicBtn.classList.add('paused');
+      } else {
+        bgMusic.play().catch(e => console.log("Audio play failed:", e));
+        musicBtn.classList.remove('paused');
+      }
+      isPlaying = !isPlaying;
+    });
+
+  <script>
+    // Mobile navigation is now permanently visible on mobile. No sidebar needed.
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
 </html>
